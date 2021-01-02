@@ -2,7 +2,7 @@
 const app = require("express")();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const crmRouter = require("./src/crm/routes");
+const crmRouter = require("./crm/routes");
 
 // db connection
 mongoose.Promise = global.Promise;
