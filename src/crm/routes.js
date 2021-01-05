@@ -1,34 +1,38 @@
-const contactController = require("./controller");
-
 const {
   addNewContact,
   getAllContacts,
   getContactById,
   updateContact,
   deleteContact,
-} = contactController;
+} = require("./controller");
+
+const { login, register, loginRequired } = require("../user/controller");
 
 const crmRouter = (app) => {
   app
     .route("/contact")
 
     // get all contacts
-    .get(getAllContacts)
+    .get(loginRequired, getAllContacts)
 
     // create a new contact
-    .post(addNewContact);
+    .post(loginRequired, addNewContact);
 
   app
     .route("/contact/:contactId")
 
     // get contact by id
-    .get(getContactById)
+    .get(loginRequired, getContactById)
 
     // update contact
-    .put(updateContact)
+    .put(loginRequired, updateContact)
 
     // delete contact
-    .delete(deleteContact);
+    .delete(loginRequired, deleteContact);
+
+  app.route("/signin").post(login);
+
+  app.route("/signup").post(register);
 };
 
 module.exports = crmRouter;
